@@ -1,1 +1,7 @@
-This is a git repo containing scripts and miscelanous data for the Shedd Aquarium Microbiome Project
+This is a git repo containing scripts and miscelanous data for the Shedd Aquarium Microbiome Project. These scripts are probably only useful to me, but feel free to use/modify for your own purposes.
+
+TaxonomyFixer.sh: This is a script for fixing the 7-level taxonomy created by the RDP Classifier in QIIME. The purpose is to create a taxonomy file with no blank columns (e.g. if RDP classifier only classifies to the order or family level). This is useful for downstream work in phyloseq. Phyloseq imports "blank" levels in the taxonomy as NA, which affects the relative abundance calculations after tax_glom functions have been called. Currently only tested with Silva taxonomy (GreenGenes contains "blank" taxonomy which is different from no assignment). Another note, is that with the QIIME formatted "consensus" silva taxonomy there are "Ambiguous taxa" assignments. Both "no assignment" and "Ambiguous taxa" assignments are treated the same although they don't have the same biological or bioniformatic meaning but both create meaningless columns in PhyloSeq.
+
+qiime2phyloseq.R: This is an R script for importing QIIME output that has been modified by the TaxonomyFixer.sh above. It parses and renames the taxnomy. 
+
+Note: the term "lca" in the above scripts refers to "lowest common ancestor" (similar to terminology used in MEGAN). This just refers to the lowest NAMED taxonomic level to which the OTU was classified. The OTU could have been classified to a lower level as "Ambiguous taxa" if the QIIME Silva consensus taxonomy is used.
